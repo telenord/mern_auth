@@ -7,7 +7,6 @@ module.exports = (app) => {
   */
   app.post('/api/account/signup', function (req, res, next) {
     const {body} = req;
-    console.log(req.body);
     const {
       firstName,
       lastName,
@@ -81,7 +80,6 @@ module.exports = (app) => {
     const {body} = req;
     const {password} = body;
     let {email} = body;
-    console.log(req);
     if (!email) {
       return res.send({
         success: false,
@@ -110,7 +108,6 @@ module.exports = (app) => {
         });
       }
       const user = users[0];
-      console.log(user);
       if (!user.validPassword(password)) {
         return res.send({
           success: false,
@@ -143,7 +140,6 @@ module.exports = (app) => {
   app.get('/api/account/verify', function (req, res, next) {
     const {query} = req;
     const {token} = query;
-    console.log(token);
     UserSession.find({_id: token, isDeleted: false}, (err, sessions) => {
       if (err) {
         return res.send({
@@ -176,25 +172,24 @@ module.exports = (app) => {
       {$set: {isDeleted: true}},
       null,
       (err, sessions) => {
-      if (err) {
-        return res.send({
-          success: false,
-          message: 'Error: Server error'
-        });
-      }
-      console.log(sessions);
-      if (sessions.length !== 1) {
-        return res.send({
-          success: false,
-          message: 'Error: Invalid'
-        });
-      } else {
-        return res.send({
-          success: true,
-          message: 'Good'
-        });
-      }
-    });
+        if (err) {
+          return res.send({
+            success: false,
+            message: 'Error: Server error'
+          });
+        }
+        if (sessions.length !== 1) {
+          return res.send({
+            success: false,
+            message: 'Error: Invalid'
+          });
+        } else {
+          return res.send({
+            success: true,
+            message: 'Good'
+          });
+        }
+      });
   });
 
 };

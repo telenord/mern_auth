@@ -5,7 +5,7 @@
   "author": "Eugene Cheung",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/arkon/MERN-boilerplate.git"
+    "url": "https://github.com/telenord/mern_auth.git"
   },
   "license": "MIT",
   "private": true,

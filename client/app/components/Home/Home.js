@@ -21,7 +21,7 @@ class Home extends Component {
   componentDidMount() {
     const token = getFromStorage('the_main_app');
     if (token) {
-      fetch('/api/account/verify?token' + token)
+      fetch('/api/account/verify?token=' + token)
         .then(res => res.json())
         .then(json => {
           if (json.success) {
@@ -43,13 +43,8 @@ class Home extends Component {
     }
   }
 
-  submit(e) {
-
-  }
-
   onSignIn(e, data) {
     e.preventDefault();
-    console.log(JSON.stringify(data), e);
     fetch('/api/account/signin', {
       method: 'POST',
       headers: {
@@ -67,7 +62,7 @@ class Home extends Component {
             signUpError: '',
           });
         }
-        console.log(json);
+        setInStorage('the_main_app', json.token);
       })
       .catch(err=>{
         this.setState({
@@ -75,11 +70,10 @@ class Home extends Component {
           signInError: err
         });
       });
-    e.preventDefault();
   }
 
   onSignUp(e, data) {
-    console.log(data);
+    e.preventDefault();
     fetch('/api/account/signup', {
       method: 'POST',
       headers: {
@@ -94,7 +88,6 @@ class Home extends Component {
             signUpError: '',
           });
         }
-        console.log(json);
       })
       .catch(err=>{
         this.setState({
@@ -102,7 +95,6 @@ class Home extends Component {
           signInError: err
         });
       });
-    e.preventDefault();
   }
 
 
@@ -122,7 +114,7 @@ class Home extends Component {
     }
     return (
       <div>
-        <p>Account</p>
+        <p>You are signed up</p>
       </div>
     );
   }
